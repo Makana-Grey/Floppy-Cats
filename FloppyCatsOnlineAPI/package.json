@@ -1,0 +1,20 @@
+{
+  "name": "floppy-cats-online-api",
+  "version": "1.0.0",
+  "description": "This API for game Space Paws a.c. Floppy Cats Online",
+  "author": "Nikitin Maxim",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon bootstrap.js"
+  },
+  "dependencies": {
+    "koa": "2.14.1",
+    "koa-body": "6.0.1",
+    "koa-router": "12.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.21",
+    "prettier": "2.8.4"
+  }
+}
