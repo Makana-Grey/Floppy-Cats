@@ -1,5 +1,7 @@
 [build]
+  command = "yarn && yarn build"
   functions = "functions"
-
-[dev]
   publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "18.14.2"

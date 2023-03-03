@@ -5,9 +5,14 @@
   "author": "Nikitin Maxim",
   "license": "MIT",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Makana-Grey/Floppy-Cats"
+  },
+  "main": "functions/server.js",
   "scripts": {
     "start": "nodemon bootstrap.js",
-    "build": "netlify build"
+    "build": "netlify build server"
   },
   "dependencies": {
     "koa": "2.14.1",
