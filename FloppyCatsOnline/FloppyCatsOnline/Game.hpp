@@ -12,8 +12,8 @@ private:
 	static inline Scene* pre_static_scene_ = nullptr;
 	static inline Scene* current_scene_ = new Scene();
 	static inline Scene* static_scene_ = new Scene();
+	static inline Texture* sprite_list_ = nullptr;
 
-	static inline Texture sprite_list_;
 
 	static inline Clock clock_;
 	static inline bool is_kill_ = false;
@@ -40,7 +40,7 @@ public:
 	static void loadStaticScene(Scene* scene);
 
 	static const Texture& getSpriteList();
-	static void setSpriteList(const Texture& texture);
+	static void setSpriteList(Texture& texture);
 };
 
 #endif // !_game_hpp

@@ -47,15 +47,15 @@ int main()
 			Game::window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 		}
 
-		Texture texture;
-		if (!texture.loadFromFile(combine_paths(MEDIA_PATH, SPRITE_LIST_FILE))) {
+		Texture* texture = new Texture();
+		if (!texture->loadFromFile(combine_paths(MEDIA_PATH, SPRITE_LIST_FILE))) {
 			return 1;
 		} 
 
 		Game::width = fullscreen_mode.width;
 		Game::height = fullscreen_mode.height;
 		Game::backgroundColor = Color(GAME_BACKGROUND_COLOR);
-		Game::setSpriteList(texture);
+		Game::setSpriteList(*texture);
 
 		Scene* backgroundScene = new Scene();
 		backgroundScene->gameObjects.push_back(new Background());

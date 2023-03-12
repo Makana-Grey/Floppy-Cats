@@ -61,12 +61,14 @@
 #define OBSTACLE_SPEED_PART 0.7f
 #define OBSTACLE_COLLIDE_OFFSET_FACTOR 0.25f
 
-#define FLOOR_X 160
-#define FLOOR_Y 0
+#define FLOOR_X 0
+#define FLOOR_Y 96
 #define FLOOR_WIDTH 32
 #define FLOOR_HEIGHT 32
+#define FLOOR_COUNT 27
 #define FLOOR_SIDE_PART 12.f
-#define OBSTACLE_COLLIDE_OFFSET 3
+#define FLOOR_SPEED_PART 8.f
+#define FLOOR_COLLIDE_OFFSET 3
 
 #define GAMEPLAY_ACTION_DURATION 0.f
 
@@ -94,3 +96,6 @@
 
 //Kernel props
 #define FIXED_DELTA_TIME 0.025f
+
+
+//Network props

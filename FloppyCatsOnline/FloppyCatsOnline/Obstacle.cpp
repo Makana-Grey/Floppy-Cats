@@ -4,28 +4,22 @@
 #include <algorithm>
 #include <stdlib.h>
 
-unsigned Obstacle::generateY() {
-	return rand() %
-		static_cast<unsigned>(Game::height - (sprite_height_ * 2 + gap_height_ + Game::height / FLOOR_SIDE_PART)) +
-		static_cast<unsigned>(sprite_height_);
-}
-
-void Obstacle::generateGap(const unsigned y) {
+void Obstacle::generateGap() {
 	position_x_ = Game::width;
 
-	sprite_.setPosition(position_x_, y + gap_height_);
-	rect_.setPosition(position_x_, y + gap_height_ + sprite_height_);
+	sprite_.setPosition(position_x_, position_y_ + gap_height_);
+	rect_.setPosition(position_x_, position_y_ + gap_height_ + sprite_height_);
 
-	sprite_reverse_.setPosition(position_x_, y - sprite_height_);
-	rect_reverse_.setPosition(position_x_, y - sprite_height_);
+	sprite_reverse_.setPosition(position_x_, position_y_ - sprite_height_);
+	rect_reverse_.setPosition(position_x_, position_y_ - sprite_height_);
 
 	collider_.x0 = collider_reverse_.x0 = collider_.x1 = collider_reverse_.x1 = position_x_;
 	collider_.x2 = collider_reverse_.x2 = collider_.x3 = collider_reverse_.x3 = position_x_ + sprite_width_;
 
-	collider_.y0 = collider_.y3 = y;
-	collider_.y1 = collider_.y2 = y - rect_reverse_.getSize().y;
+	collider_.y0 = collider_.y3 = position_y_;
+	collider_.y1 = collider_.y2 = position_y_ - rect_reverse_.getSize().y;
 
-	collider_reverse_.y1 = collider_reverse_.y2 = y + gap_height_;
+	collider_reverse_.y1 = collider_reverse_.y2 = position_y_ + gap_height_;
 	collider_reverse_.y0 = collider_reverse_.y3 = rect_.getPosition().y + rect_.getSize().y;
 }
 
@@ -55,10 +49,25 @@ Obstacle::Obstacle() {
 
 	speed_ = Game::width / OBSTACLE_SPEED_PART;
 
-	generateGap(generateY());
+	setYPosition(generateYPosition());
+	generateGap();
 
 	colliders_.push_back(&collider_);
 	colliders_.push_back(&collider_reverse_);
+}
+
+unsigned Obstacle::generateYPosition() {
+	return rand() %
+		static_cast<unsigned>(Game::height - (sprite_height_ * 2 + gap_height_ + Game::height / FLOOR_SIDE_PART)) +
+		static_cast<unsigned>(sprite_height_);
+}
+
+unsigned Obstacle::getYPosition() {
+	return position_y_;
+}
+
+void Obstacle::setYPosition(unsigned value) {
+	position_y_ = value;
 }
 
 void Obstacle::setIsMove(bool value) {
@@ -86,7 +95,7 @@ void Obstacle::update() {
 
 void Obstacle::fixedUpdate() {
 	if (sprite_.getPosition().x < -1 * sprite_width_) {
-		generateGap(generateY());
+		generateGap();
 	}
 }
 

@@ -1,6 +1,7 @@
 #include "Game.hpp"
 #include "definitions.hpp"
 
+
 void Game::render() {
 	Game::deltaTime = Game::clock_.restart().asMicroseconds() * 1e-6;
 	Game::fixedDeltaTime += Game::deltaTime;
@@ -56,6 +57,7 @@ void Game::run() {
 void Game::_kill() {
 	delete Game::current_scene_;
 	delete Game::static_scene_;
+	delete Game::sprite_list_;
 	delete Game::window;
 }
 
@@ -92,9 +94,9 @@ void Game::loadStaticScene(Scene* scene) {
 
 
 const Texture& Game::getSpriteList() {
-	return Game::sprite_list_;
+	return *Game::sprite_list_;
 }
 
-void Game::setSpriteList(const Texture& texture) {
-	Game::sprite_list_ = texture;
+void Game::setSpriteList(Texture& texture) {
+	Game::sprite_list_ = &texture;
 }

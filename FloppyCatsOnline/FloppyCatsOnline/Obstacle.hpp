@@ -19,19 +19,21 @@ private:
 	RectCollider collider_;
 	RectCollider collider_reverse_;
 
-
 	bool is_move_ = false;
 
 	float gap_height_ = 0;
 
 	float speed_ = 0;
 	float position_x_ = 0;
+	unsigned position_y_ = 0;
 
-	unsigned generateY();
-	void generateGap(const unsigned y);
+	void generateGap();
 public:
 	Obstacle();
 	void setIsMove(bool value);
+	unsigned generateYPosition();
+	unsigned getYPosition();
+	void setYPosition(unsigned value);
 	virtual const std::vector<RectCollider*>& getCollider() override;
 	virtual void update() override;
 	virtual void fixedUpdate() override;

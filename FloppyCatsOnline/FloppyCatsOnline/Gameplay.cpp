@@ -68,7 +68,7 @@ void Gameplay::defineCollisions(Player& player) {
 			}
 		}
 
-		if (pc.y3 - floor->getCollider() > OBSTACLE_COLLIDE_OFFSET) {
+		if (pc.y3 - floor->getCollider() > FLOOR_COLLIDE_OFFSET) {
 			onCollideWithFloor();
 		}
 	}

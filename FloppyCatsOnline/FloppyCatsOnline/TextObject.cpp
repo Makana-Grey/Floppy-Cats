@@ -3,10 +3,10 @@
 #include <cctype>
 
 void TextObject::updateText() {
-	for (auto ch : s_text_) {
+	for (auto ch : sprites_) {
 		delete ch;
 	}
-	s_text_.clear();
+	sprites_.clear();
 
 	unsigned char_x = 0;
 	unsigned char_y = 0;
@@ -40,7 +40,7 @@ void TextObject::updateText() {
 		);
 		ch->setColor(filter_);
 
-		s_text_.push_back(ch);
+		sprites_.push_back(ch);
 	}
 
 	is_new_text_ = false;
@@ -58,6 +58,13 @@ TextObject::TextObject(const std::string& t, const Vector2f& p, const float sf, 
 	is_new_text_ = true;
 }
 
+TextObject::~TextObject() {
+	for (auto ch : sprites_) {
+		delete ch;
+	}
+	sprites_.clear();
+}
+
 const std::string& TextObject::getText() {
 	return text_;
 }
@@ -70,11 +77,11 @@ const Vector2f& TextObject::getPosition() {
 	return position_;
 }
 void TextObject::setPosition(const Vector2f& value) {
-	if (s_text_.size()) {
+	if (sprites_.size()) {
 		float x = value.x - position_.x;
 		float y = value.y - position_.y;
 
-		for (auto ch : s_text_) {
+		for (auto ch : sprites_) {
 			ch->setPosition(
 				ch->getPosition().x + x,
 				ch->getPosition().y + y
@@ -91,17 +98,17 @@ void TextObject::setScaleFactor(const float value) {
 	scale_factor_ = value;
 	float new_width = scale_factor_ * CHARS_WIDTH;
 
-	if (s_text_.size()) {
+	if (sprites_.size()) {
 		float x_offset = new_width - width_;
 
-		s_text_[0]->setScale(scale_factor_, scale_factor_);
+		sprites_[0]->setScale(scale_factor_, scale_factor_);
 
-		for (unsigned i = 1; i < s_text_.size(); i++)
+		for (unsigned i = 1; i < sprites_.size(); i++)
 		{
-			s_text_[i]->setScale(scale_factor_, scale_factor_);
-			s_text_[i]->setPosition(
-				s_text_[i]->getPosition().x + x_offset * i,
-				s_text_[i]->getPosition().y
+			sprites_[i]->setScale(scale_factor_, scale_factor_);
+			sprites_[i]->setPosition(
+				sprites_[i]->getPosition().x + x_offset * i,
+				sprites_[i]->getPosition().y
 			);
 		}
 	}
@@ -115,8 +122,8 @@ const Color& TextObject::getColor() {
 void TextObject::setColor(const Color& value) {
 	filter_ = value;
 
-	if (s_text_.size()) {
-		for (auto ch : s_text_) {
+	if (sprites_.size()) {
+		for (auto ch : sprites_) {
 			ch->setColor(filter_);
 		}
 	}
@@ -130,7 +137,7 @@ void TextObject::fixedUpdate() {
 }
 
 void TextObject::draw(RenderTarget& target, RenderStates states) const {
-	for (auto ch : s_text_) {
+	for (auto ch : sprites_) {
 		target.draw(*ch, states);
 	}
 }

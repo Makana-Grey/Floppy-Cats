@@ -9,7 +9,7 @@
     "type": "git",
     "url": "git+https://github.com/Makana-Grey/Floppy-Cats"
   },
-  "main": "functions/server.js",
+  "main": "bootstrap.js",
   "scripts": {
     "start": "nodemon bootstrap.js"
   },

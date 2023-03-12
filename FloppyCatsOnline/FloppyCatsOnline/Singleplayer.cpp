@@ -4,7 +4,6 @@
 #include <string>
 
 Singleplayer::Singleplayer() {
-
 	gameObjects.push_back(obstacle);
 	gameObjects.push_back(floor);
 	gameObjects.push_back(player);
@@ -49,15 +48,13 @@ void Singleplayer::freeWindow() {
 		gameObjects.push_back(obstacle);
 		gameObjects.push_back(floor);
 		gameObjects.push_back(player);
-		gameObjects.push_back(text_);
+		player->jump();
 
+		gameObjects.push_back(text_);
 		score_ = 0;
 		text_->setText(std::to_string(score_));
 
-		player->jump();
 		is_over = is_reset_ = false;
-
-		score_ = 0;
 	}
 }
 
@@ -78,4 +75,5 @@ void  Singleplayer::onCollideWithFloor() {
 
 void Singleplayer::onPassObstacle() {
 	text_->setText(std::to_string(++score_));
+	obstacle->setYPosition(obstacle->generateYPosition());
 }

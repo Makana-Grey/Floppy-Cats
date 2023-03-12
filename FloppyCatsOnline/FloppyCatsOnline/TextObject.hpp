@@ -13,7 +13,7 @@ using namespace sf;
 class TextObject : public GameObject {
 private:
 	std::string text_;
-	std::vector<Sprite*> s_text_;
+	std::vector<Sprite*> sprites_;
 	bool is_new_text_ = false;
 
 	Vector2f position_;
@@ -40,6 +40,7 @@ private:
 public:
 	TextObject(const Vector2f& p, const float sf, const Color& f);
 	TextObject(const std::string& t, const Vector2f& p, const float sf, const Color& f);
+	~TextObject();
 
 	const std::string& getText();
 	void setText(const std::string& value);
